@@ -33,38 +33,86 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         floatingActionButton: Padding(
-          padding: const EdgeInsets.only(right: 10, bottom: 20),
+          padding: const EdgeInsets.only(bottom: 20),
           child: FloatingActionButton.extended(
-            label: const Text('Add Item'),
+            icon: const Icon(Icons.add),
+            label: const Text('Add Product'),
             backgroundColor: Colors.green,
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text(
+                      'Cadastro do Produto e do Preço',
+                    ),
+                    actions: [
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 4,
+                        ),
+                        child: Text(
+                          'Nome do Produto',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ),
+                      const TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Inserir Nome',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          bottom: 4,
+                        ),
+                        child: Text(
+                          'Preço do Produto',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      const TextField(
+                        decoration: InputDecoration(
+                          hintText: 'Inserir Valor',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            child: const Text('Cancelar'),
+                            onPressed: () {},
+                          ),
+                          const SizedBox(
+                            width: 6,
+                          ),
+                          ElevatedButton(
+                            child: const Text('Cadastrar'),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         ),
       ),
     );
   }
 }
-
-
-// Text('Nome do Produto'),
-//             Padding(
-//               padding: EdgeInsets.only(
-//                 left: 20,
-//                 right: 20,
-//               ),
-//               child: TextField(
-//                 decoration: InputDecoration(
-//                   hintText: 'Inserir Nome',
-//                   border: OutlineInputBorder(),
-//                 ),
-//               ),
-//             ),
-//             SizedBox(
-//               height: 20,
-//             ),
-//             Text('Preço do Produto'),
-//             TextField(
-//               decoration: InputDecoration(
-//                 hintText: 'Adicionar Preço',
-//               ),
-//             ),

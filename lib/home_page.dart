@@ -32,14 +32,13 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(right: 10, bottom: 20),
+          child: FloatingActionButton.extended(
+            label: const Text('Add Item'),
+            backgroundColor: Colors.green,
+            onPressed: () {},
           ),
-          onPressed: () {
-            
-          },
         ),
       ),
     );

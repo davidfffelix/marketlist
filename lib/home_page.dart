@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // final List _shopping = List[];
+  final List _shopping = [];
 
   @override
   Widget build(BuildContext context) {
@@ -20,34 +20,52 @@ class _HomePageState extends State<HomePage> {
           leading: const Icon(Icons.menu),
         ),
         body: Column(
-          children: const [
-            Text('Nome do Produto: '),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Inserir Nome',
-              ),
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: _shopping.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(_shopping[index]),
+                );
+              },
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Text('Preço do Produto'),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Adicionar Preço',
-              ),
-            ),
-            // ListView.builder(
-            //   shrinkWrap: true,
-            //   itemCount: 10,
-            //   itemBuilder: (context, index) {
-            //     return const ListTile(
-            //       title: Text('Produto'),
-            //     );
-            //   },
-            // ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            
+          },
         ),
       ),
     );
   }
 }
+
+
+// Text('Nome do Produto'),
+//             Padding(
+//               padding: EdgeInsets.only(
+//                 left: 20,
+//                 right: 20,
+//               ),
+//               child: TextField(
+//                 decoration: InputDecoration(
+//                   hintText: 'Inserir Nome',
+//                   border: OutlineInputBorder(),
+//                 ),
+//               ),
+//             ),
+//             SizedBox(
+//               height: 20,
+//             ),
+//             Text('Preço do Produto'),
+//             TextField(
+//               decoration: InputDecoration(
+//                 hintText: 'Adicionar Preço',
+//               ),
+//             ),

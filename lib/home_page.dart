@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Nome do Produto',
+                            'Produto',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const TextField(
                         decoration: InputDecoration(
-                          hintText: 'Inserir Nome',
+                          hintText: 'Digite o Produto',
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -84,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Preço do Produto',
+                            'Preço',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const TextField(
                         decoration: InputDecoration(
-                          hintText: 'Inserir Preço',
+                          hintText: 'Digite o Preço',
                           border: OutlineInputBorder(),
                         ),
                       ),

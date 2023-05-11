@@ -69,7 +69,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const TextField(
-                        controller: nameEditController
                         keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           hintText: 'Digite o Produto',

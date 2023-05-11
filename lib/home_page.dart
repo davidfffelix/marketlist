@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,6 +11,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List _shopping = [];
+
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -45,19 +49,23 @@ class _HomePageState extends State<HomePage> {
                 builder: (context) {
                   return AlertDialog(
                     title: const Text(
-                      'Cadastro do Produto e do Preço',
+                      'Cadastro do Produto\n e do Preço',
+                      textAlign: TextAlign.start,
                     ),
                     actions: [
                       const Padding(
                         padding: EdgeInsets.only(
                           bottom: 4,
                         ),
-                        child: Text(
-                          'Nome do Produto',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Nome do Produto',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.start,
                           ),
-                          textAlign: TextAlign.start,
                         ),
                       ),
                       const TextField(
@@ -73,16 +81,19 @@ class _HomePageState extends State<HomePage> {
                         padding: EdgeInsets.only(
                           bottom: 4,
                         ),
-                        child: Text(
-                          'Preço do Produto',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Preço do Produto',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                       const TextField(
                         decoration: InputDecoration(
-                          hintText: 'Inserir Valor',
+                          hintText: 'Inserir Preço',
                           border: OutlineInputBorder(),
                         ),
                       ),

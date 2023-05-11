@@ -1,7 +1,7 @@
-class Product {
+class ProductModel {
   final String name;
   final double price;
-  Product({
+  ProductModel({
     required this.name,
     required this.price,
   });

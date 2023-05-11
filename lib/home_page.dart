@@ -104,6 +104,11 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                Colors.green,
+                              ),
+                            ),
                             child: const Text('Cancelar'),
                             onPressed: () {},
                           ),
@@ -111,6 +116,11 @@ class _HomePageState extends State<HomePage> {
                             width: 6,
                           ),
                           ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                Colors.green,
+                              ),
+                            ),
                             child: const Text('Cadastrar'),
                             onPressed: () {},
                           ),

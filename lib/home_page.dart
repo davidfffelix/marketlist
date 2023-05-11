@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const TextField(
+                        keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           hintText: 'Digite o Produto',
                           border: OutlineInputBorder(),
@@ -92,6 +93,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const TextField(
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: 'Digite o Preço',
                           border: OutlineInputBorder(),
@@ -122,7 +124,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             child: const Text('Cadastrar'),
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.back(result: true);
+                            },
                           ),
                         ],
                       ),

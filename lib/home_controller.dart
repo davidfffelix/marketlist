@@ -8,6 +8,8 @@ class HomeController extends GetxController {
   final nameTextEditController = TextEditingController();
   final priceTextEditController = TextEditingController();
 
+  bool isSorted = false;
+
   // late ProductModel productModel;
   // RxInt itemCount = 0.obs;
 
@@ -16,6 +18,12 @@ class HomeController extends GetxController {
     super.onClose();
     nameTextEditController.dispose();
     priceTextEditController.dispose();
+  }
+
+  void sort() {
+    if(products) {
+
+    }
   }
 
   void addProducts(String name, double price) {

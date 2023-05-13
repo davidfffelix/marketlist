@@ -34,12 +34,12 @@ class _HomePageState extends State<HomePage> {
               return ListTile(
                 title: Text(controller.products[index].name),
                 subtitle: Text('${controller.products[index].price}'),
-                trailing: GestureDetector(
-                  child: const Icon(
+                trailing: IconButton(
+                  icon: const Icon(
                     Icons.delete,
                     color: Colors.red,
                   ),
-                  onTap: () {
+                  onPressed: () {
                     controller.removeProducts(index);
                   },
                 ),

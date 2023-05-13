@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'models/product_model.dart';
 
 class HomeController extends GetxController {
-  Rx<List<ProductModel>> products = Rx<List<ProductModel>>([]);
-  TextEditingController nameTextEditController = TextEditingController();
-  TextEditingController priceTextEditController = TextEditingController();
+  List<ProductModel> products = [];
 
-  late ProductModel productModel;
-  RxInt itemCount = 0.obs;
+  final nameTextEditController = TextEditingController();
+  final priceTextEditController = TextEditingController();
+
+  // late ProductModel productModel;
+  // RxInt itemCount = 0.obs;
 
   @override
   void onClose() {
@@ -18,9 +18,13 @@ class HomeController extends GetxController {
     priceTextEditController.dispose();
   }
 
-  addProducts(String name, double price) {
-    productModel = ProductModel(name: name, price: price);
-    products.value.add(productModel);
-    itemCount.value = products.value.length;
+  void addProducts(String name, double price) {
+    products.add(ProductModel(name: name, price: price));
+    update();
+  }
+
+  void removeProducts(int index) {
+    products.removeAt(index);
+    update();
   }
 }

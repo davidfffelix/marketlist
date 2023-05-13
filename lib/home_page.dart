@@ -10,8 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List _shopping = [];
-
   final HomeController controller = Get.put(HomeController());
 
   @override
@@ -23,18 +21,25 @@ class _HomePageState extends State<HomePage> {
           title: const Text('MarketList'),
           leading: const Icon(Icons.menu),
         ),
-        body: Column(
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: _shopping.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(_shopping[index]),
-                );
-              },
-            ),
-          ],
+        body: GetBuilder<HomeController>(
+          builder: (control) => ListView.builder(
+            itemCount: controller.products.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(controller.products[index].name),
+                subtitle: Text('${controller.products[index].price}'),
+                trailing: GestureDetector(
+                  child: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  onTap: () {
+                    controller.removeProducts(index);
+                  },
+                ),
+              );
+            },
+          ),
         ),
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(bottom: 20),
@@ -68,10 +73,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      const TextField(
+                      TextField(
+                        controller: controller.nameTextEditController,
                         keyboardType: TextInputType.name,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Digite o Produto',
+                          // TODO: Verificar!
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -92,9 +99,10 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      const TextField(
+                      TextField(
+                        controller: controller.priceTextEditController,
                         keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Digite o Preço',
                           border: OutlineInputBorder(),
                         ),
@@ -125,7 +133,12 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: const Text('Cadastrar'),
                             onPressed: () {
-                              Get.back(result: true);
+                              controller.addProducts(
+                                controller.nameTextEditController.text,
+                                // TODO: Estudar!
+                                double.tryParse(controller.priceTextEditController.text) ?? 0,
+                              );
+                              Navigator.of(context).pop();
                             },
                           ),
                         ],

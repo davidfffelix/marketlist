@@ -20,6 +20,12 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.green,
           title: const Text('MarketList'),
           leading: const Icon(Icons.menu),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.swap_vert),
+              onPressed: () {},
+            ),
+          ],
         ),
         body: GetBuilder<HomeController>(
           builder: (control) => ListView.builder(

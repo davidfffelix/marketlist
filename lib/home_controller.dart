@@ -6,12 +6,13 @@ class HomeController extends GetxController {
   List<ProductModel> products = [
     ProductModel(name: 'farinha', price: 20),
     ProductModel(name: 'arroz', price: 12),
-    ProductModel(name: 'feijao', price: 15),
+    ProductModel(name: 'feijão', price: 15),
+    ProductModel(name: 'óleo', price: 5),
   ];
 
   final nameTextEditController = TextEditingController();
   final priceTextEditController = TextEditingController();
-  var sortType = sortLowerPrice();
+  // var sortType = sortLowerPrice();
 
   // late ProductModel productModel;
   // RxInt itemCount = 0.obs;

@@ -23,7 +23,9 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               icon: const Icon(Icons.swap_vert),
-              onPressed: () {},
+              onPressed: () {
+                controller.sort();
+              },
             ),
           ],
         ),

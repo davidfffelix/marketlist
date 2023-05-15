@@ -3,12 +3,15 @@ import 'package:get/get.dart';
 import 'models/product_model.dart';
 
 class HomeController extends GetxController {
-  List<ProductModel> products = [];
+  List<ProductModel> products = [
+    ProductModel(name: 'farinha', price: 20),
+    ProductModel(name: 'arroz', price: 12),
+    ProductModel(name: 'feijao', price: 15),
+  ];
 
   final nameTextEditController = TextEditingController();
   final priceTextEditController = TextEditingController();
-
-  bool isSorted = false;
+  var sortType = sortLowerPrice();
 
   // late ProductModel productModel;
   // RxInt itemCount = 0.obs;
@@ -20,10 +23,22 @@ class HomeController extends GetxController {
     priceTextEditController.dispose();
   }
 
-  void sort() {
-    if(products) {
+  void sortLowerPrice() {
+    products.sort(
+      (a, b) {
+        return a.price.compareTo(b.price);
+      },
+    );
+    update();
+  }
 
-    }
+  void sortHigherPrice() {
+    products.sort(
+      (a, b) {
+        return b.price.compareTo(a.price);
+      },
+    );
+    update();
   }
 
   void addProducts(String name, double price) {

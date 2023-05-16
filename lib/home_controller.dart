@@ -15,7 +15,7 @@ class HomeController extends GetxController {
   final nameTextEditController = TextEditingController();
   final priceTextEditController = TextEditingController();
 
-  bool isSorted = false;
+  bool isSorted = true;
   // var sortType = sortLowerPrice();
 
   // late ProductModel productModel;
@@ -28,26 +28,27 @@ class HomeController extends GetxController {
     priceTextEditController.dispose();
   }
 
-  void sortLowerPrice() {
-    if (!isSorted) {
-      products.sort(
-        (a, b) {
-          return b.price.compareTo(a.price);
-        },
-      );
-      isSorted = true;
-    } else {
-      products.reversed.toList();
-    }
+  void sort() {
+    products.sort(
+      (a, b) {
+        return isSorted ? b.price.compareTo(a.price) : a.price.compareTo(b.price);
+      },
+    );
+    isSorted = !isSorted;
     update();
   }
 
-  // void sortHigherPrice() {
-  //   products.sort(
-  //     (a, b) {
-  //       return b.price.compareTo(a.price);
-  //     },
-  //   );
+  // void sort1() {
+  //   if (isSorted) {
+  //     products.sort(
+  //       (a, b) {
+  //         return b.price.compareTo(a.price);
+  //       },
+  //     );
+  //   } else {
+  //     products.reversed.toList();
+  //   }
+  //   isSorted = !isSorted;
   //   update();
   // }
 

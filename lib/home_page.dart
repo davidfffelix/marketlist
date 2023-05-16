@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: const Icon(Icons.swap_vert),
               onPressed: () {
-                controller.sortLowerPrice();
+                controller.sort();
               },
             ),
           ],

@@ -24,29 +24,49 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               icon: const Icon(Icons.swap_vert),
               onPressed: () {
-                controller.sort();
+                controller.sortProducts();
               },
             ),
           ],
         ),
-        body: GetBuilder<HomeController>(
-          builder: (control) => ListView.builder(
-            itemCount: controller.products.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(controller.products[index].name),
-                subtitle: Text('${controller.products[index].price}'),
-                trailing: IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Colors.red,
+        body: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              const TextField(
+                decoration: InputDecoration(
+                  labelText: 'Search',
+                  suffixIcon: Icon(
+                    Icons.search,
                   ),
-                  onPressed: () {
-                    controller.removeProducts(index);
+                ),
+              ),
+              Expanded(
+                child: GetBuilder<HomeController>(
+                  builder: (control) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.products.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(controller.products[index].name),
+                          subtitle: Text('${controller.products[index].price}'),
+                          trailing: IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              controller.removeProducts(index);
+                            },
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
-              );
-            },
+              ),
+            ],
           ),
         ),
         floatingActionButton: Padding(

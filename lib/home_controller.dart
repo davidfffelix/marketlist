@@ -28,7 +28,13 @@ class HomeController extends GetxController {
     priceTextEditController.dispose();
   }
 
-  void sort() {
+  @override
+  void onInit() {
+    super.onInit();
+    sortProducts();
+  }
+
+  void sortProducts() {
     products.sort(
       (a, b) {
         return isSorted ? b.price.compareTo(a.price) : a.price.compareTo(b.price);
@@ -37,20 +43,6 @@ class HomeController extends GetxController {
     isSorted = !isSorted;
     update();
   }
-
-  // void sort1() {
-  //   if (isSorted) {
-  //     products.sort(
-  //       (a, b) {
-  //         return b.price.compareTo(a.price);
-  //       },
-  //     );
-  //   } else {
-  //     products.reversed.toList();
-  //   }
-  //   isSorted = !isSorted;
-  //   update();
-  // }
 
   void addProducts(String name, double price) {
     products.add(ProductModel(name: name, price: price));
@@ -61,4 +53,6 @@ class HomeController extends GetxController {
     products.removeAt(index);
     update();
   }
+
+  void searchProducts() {}
 }

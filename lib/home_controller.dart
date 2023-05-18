@@ -12,10 +12,13 @@ class HomeController extends GetxController {
     ProductModel(name: 'Café', price: 8),
   ];
 
+  List<ProductModel> foundProducts = [];
+
   final nameTextEditController = TextEditingController();
   final priceTextEditController = TextEditingController();
 
   bool isSorted = true;
+
   // var sortType = sortLowerPrice();
 
   // late ProductModel productModel;
@@ -26,12 +29,14 @@ class HomeController extends GetxController {
     super.onClose();
     nameTextEditController.dispose();
     priceTextEditController.dispose();
+    // filterController.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
     sortProducts();
+    foundProducts = products;
   }
 
   void sortProducts() {
@@ -54,5 +59,13 @@ class HomeController extends GetxController {
     update();
   }
 
-  void searchProducts() {}
+  void filterProducts(String productsName) {
+    List<ProductModel> results = [];
+    if (productsName.isEmpty) {
+      results = products;
+    } else {
+      results = products.where((item) => item.toLowerCase().contains(productsName.toLowerCase())).toList();
+    }
+    foundProducts = results;
+  }
 }

@@ -29,45 +29,49 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              const TextField(
-                decoration: InputDecoration(
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 14,
+              ),
+              child: TextField(
+                onChanged: (value) => controller.filterProducts(value),
+                decoration: const InputDecoration(
                   labelText: 'Search',
                   suffixIcon: Icon(
                     Icons.search,
                   ),
                 ),
               ),
-              Expanded(
-                child: GetBuilder<HomeController>(
-                  builder: (control) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.products.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(controller.products[index].name),
-                          subtitle: Text('${controller.products[index].price}'),
-                          trailing: IconButton(
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                            onPressed: () {
-                              controller.removeProducts(index);
-                            },
+            ),
+            Expanded(
+              child: GetBuilder<HomeController>(
+                builder: (control) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.products.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(controller.products[index].name),
+                        subtitle: Text('${controller.products[index].price}'),
+                        trailing: IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
                           ),
-                        );
-                      },
-                    );
-                  },
-                ),
+                          onPressed: () {
+                            controller.removeProducts(index);
+                          },
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(bottom: 20),

@@ -53,6 +53,8 @@ class HomeController extends GetxController {
     update();
   }
 
+  void updateProducts() {}
+
   void removeProducts(int index) {
     products.removeAt(index);
     update();

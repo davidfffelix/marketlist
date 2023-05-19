@@ -68,7 +68,6 @@ class _HomePageState extends State<HomePage> {
                         subtitle: Text('${control.foundProducts[index].price}'),
                         trailing: SizedBox(
                           width: 100,
-                          height: 100,
                           child: Row(
                             children: [
                               IconButton(
@@ -76,7 +75,36 @@ class _HomePageState extends State<HomePage> {
                                   Icons.edit,
                                   color: Colors.black,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return const AlertDialog(
+                                        title: Text(
+                                          'Edit Product',
+                                        ),
+                                        actions: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              bottom: 4,
+                                            ),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                'Product',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                               IconButton(
                                 icon: const Icon(
@@ -111,8 +139,8 @@ class _HomePageState extends State<HomePage> {
                 builder: (context) {
                   return AlertDialog(
                     title: const Text(
-                      'Cadastro do Produto\n e do Preço',
-                      textAlign: TextAlign.start,
+                      'Product and Price Registration',
+                      textAlign: TextAlign.center,
                     ),
                     actions: [
                       const Padding(
@@ -122,7 +150,7 @@ class _HomePageState extends State<HomePage> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Produto',
+                            'Product',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -134,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                         controller: controller.nameTextEditController,
                         keyboardType: TextInputType.name,
                         decoration: const InputDecoration(
-                          hintText: 'Digite o Produto',
+                          hintText: 'Enter the Product',
                           // TODO: Verificar!
                           border: OutlineInputBorder(),
                         ),
@@ -149,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Preço',
+                            'Price',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -160,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                         controller: controller.priceTextEditController,
                         keyboardType: TextInputType.number,
                         decoration: const InputDecoration(
-                          hintText: 'Digite o Preço',
+                          hintText: 'Enter Price',
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -176,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                                 Colors.green,
                               ),
                             ),
-                            child: const Text('Cancelar'),
+                            child: const Text('Cancel'),
                             onPressed: () {},
                           ),
                           const SizedBox(
@@ -188,7 +216,7 @@ class _HomePageState extends State<HomePage> {
                                 Colors.green,
                               ),
                             ),
-                            child: const Text('Cadastrar'),
+                            child: const Text('Register'),
                             onPressed: () {
                               controller.addProducts(
                                 controller.nameTextEditController.text,

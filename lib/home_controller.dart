@@ -29,7 +29,6 @@ class HomeController extends GetxController {
     super.onClose();
     nameTextEditController.dispose();
     priceTextEditController.dispose();
-    // filterController.dispose();
   }
 
   @override
@@ -59,13 +58,12 @@ class HomeController extends GetxController {
     update();
   }
 
-  void filterProducts(String productsName) {
-    List<ProductModel> results = [];
-    if (productsName.isEmpty) {
-      results = products;
+  void searchProducts(String searchTerm) {
+    if (searchTerm.isEmpty) {
+      foundProducts = products;
     } else {
-      results = products.where((item) => item.toLowerCase().contains(productsName.toLowerCase())).toList();
+      foundProducts = products.where((product) => product.name.toLowerCase().startsWith(searchTerm.toLowerCase())).toList();
     }
-    foundProducts = results;
+    update();
   }
 }

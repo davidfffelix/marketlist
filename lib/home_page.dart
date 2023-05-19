@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -37,7 +38,10 @@ class _HomePageState extends State<HomePage> {
                 horizontal: 14,
               ),
               child: TextField(
-                onChanged: (value) => controller.filterProducts(value),
+                controller: controller.nameTextEditController,
+                onChanged: (value) {
+                  controller.searchProducts(value);
+                },
                 decoration: const InputDecoration(
                   labelText: 'Search',
                   suffixIcon: Icon(
@@ -49,21 +53,42 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: GetBuilder<HomeController>(
                 builder: (control) {
+                  if (control.foundProducts.isEmpty) {
+                    return const Center(
+                      child: Text('No products found.'),
+                    );
+                  }
+
                   return ListView.builder(
                     shrinkWrap: true,
-                    itemCount: controller.products.length,
+                    itemCount: control.foundProducts.length,
                     itemBuilder: (context, index) {
                       return ListTile(
-                        title: Text(controller.products[index].name),
-                        subtitle: Text('${controller.products[index].price}'),
-                        trailing: IconButton(
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
+                        title: Text(control.foundProducts[index].name),
+                        subtitle: Text('${control.foundProducts[index].price}'),
+                        trailing: SizedBox(
+                          width: 100,
+                          height: 100,
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {},
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {
+                                  controller.removeProducts(index);
+                                },
+                              ),
+                            ],
                           ),
-                          onPressed: () {
-                            controller.removeProducts(index);
-                          },
                         ),
                       );
                     },

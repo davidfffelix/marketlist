@@ -6,6 +6,4 @@ class ProductModel {
     required this.name,
     required this.price,
   });
-
-  toLowerCase() {}
 }

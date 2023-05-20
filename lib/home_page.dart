@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -80,12 +79,13 @@ class _HomePageState extends State<HomePage> {
                                     context: context,
                                     barrierDismissible: false,
                                     builder: (context) {
-                                      return const AlertDialog(
-                                        title: Text(
+                                      return AlertDialog(
+                                        title: const Text(
                                           'Edit Product',
+                                          textAlign: TextAlign.center,
                                         ),
                                         actions: [
-                                          Padding(
+                                          const Padding(
                                             padding: EdgeInsets.only(
                                               bottom: 4,
                                             ),
@@ -99,6 +99,79 @@ class _HomePageState extends State<HomePage> {
                                                 textAlign: TextAlign.start,
                                               ),
                                             ),
+                                          ),
+                                          TextField(
+                                            keyboardType: TextInputType.name,
+                                            decoration: const InputDecoration(
+                                              hintText: 'Enter a New Name',
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            onChanged: (newName) {
+                                              // Atualizar o nome do produto na lista
+                                              controller.updateProducts(index, newName, controller.products[index].price);
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.only(
+                                              bottom: 4,
+                                            ),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                'Price',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          TextField(
+                                            keyboardType: TextInputType.number,
+                                            decoration: const InputDecoration(
+                                              hintText: 'Enter New Price',
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            onChanged: (newPrice) {
+                                              // Atualizar o preço do produto na lista
+                                              double parsedPrice = double.tryParse(newPrice) ?? 0;
+                                              controller.updateProducts(index, controller.products[index].name, parsedPrice);
+                                            },
+                                          ),
+                                          const SizedBox(
+                                            height: 6,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor: MaterialStateProperty.all(
+                                                    Colors.green,
+                                                  ),
+                                                ),
+                                                child: const Text('Cancel'),
+                                                onPressed: () {
+                                                  Get.back();
+                                                },
+                                              ),
+                                              const SizedBox(
+                                                width: 6,
+                                              ),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor: MaterialStateProperty.all(
+                                                    Colors.green,
+                                                  ),
+                                                ),
+                                                child: const Text('Update'),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       );
@@ -205,7 +278,9 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             child: const Text('Cancel'),
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.back();
+                            },
                           ),
                           const SizedBox(
                             width: 6,

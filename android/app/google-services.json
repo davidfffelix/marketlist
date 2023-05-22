@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1045650269319",
+    "project_id": "marketlist-3b324",
+    "storage_bucket": "marketlist-3b324.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045650269319:android:34aabc2a24975fd9478422",
+        "android_client_info": {
+          "package_name": "br.com.david.marketlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1045650269319-u8i6ajspok2ffefgjldgdifi2maf72nl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGapu4wzia6SwDXzjNePL9nVKdBR5b0Ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1045650269319-u8i6ajspok2ffefgjldgdifi2maf72nl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

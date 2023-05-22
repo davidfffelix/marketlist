@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   cloud_firestore: ^4.6.0
+  firebase_core: ^2.13.0
   flutterfire_cli: ^0.2.7
 
 dev_dependencies:

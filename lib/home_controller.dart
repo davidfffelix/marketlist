@@ -22,11 +22,6 @@ class HomeController extends GetxController {
 
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  // var sortType = sortLowerPrice();
-
-  // late ProductModel productModel;
-  // RxInt itemCount = 0.obs;
-
   @override
   void onClose() {
     super.onClose();
@@ -52,21 +47,23 @@ class HomeController extends GetxController {
   }
 
   void addProducts(String name, double price) {
-    products.add(ProductModel(name: name, price: price));
-    update();
+    firestore.collection('products').add({
+      'name': name,
+      'price': price,
+    }).then((value) {
+      readProducts();
+    }).catchError((error) {});
   }
 
-  // // Exemplo de método para adicionar um produto ao Firestore
-  // void addProducts(String name, double price) {
-  //   firestore.collection('products').add({
-  //     'name': name,
-  //     'price': price,
-  //   }).then((value) {
-  //     // Sucesso ao adicionar o produto ao Firestore
-  //   }).catchError((error) {
-  //     // Lidar com o erro ao adicionar o produto ao Firestore
-  //   });
-  // }
+  void readProducts() {
+    firestore.collection('products').get().then((value) {
+      products.clear();
+      value.docs.forEach((element) {
+        final product = element.data();
+        products.add(ProductModel(name: product['name'], price: product['price']));
+      });
+    }).catchError((error) {});
+  }
 
   void updateProducts(int index, String newName, double newPrice) {
     ProductModel updatedProduct = ProductModel(name: newName, price: newPrice);

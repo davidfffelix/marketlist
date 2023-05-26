@@ -1,26 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'models/product_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeController extends GetxController {
-  List<ProductModel> products = [
-    // ProductModel(name: 'Farinha', price: 20),
-    // ProductModel(name: 'Arroz', price: 12),
-    // ProductModel(name: 'Feijão', price: 15),
-    // ProductModel(name: 'Óleo', price: 5),
-    // ProductModel(name: 'Macarrão', price: 2),
-    // ProductModel(name: 'Café', price: 8),
-  ];
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  List<ProductModel> products = [];
 
   List<ProductModel> foundProducts = [];
 
-  final nameTextEditController = TextEditingController();
-  final priceTextEditController = TextEditingController();
+  late TextEditingController nameTextEditController;
+  late TextEditingController priceTextEditController;
 
   bool isSorted = true;
-
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void onClose() {
@@ -32,6 +26,9 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    nameTextEditController = TextEditingController();
+    priceTextEditController = TextEditingController();
+    readProducts();
     sortProducts();
     foundProducts = products;
   }
@@ -58,44 +55,45 @@ class HomeController extends GetxController {
   void readProducts() {
     firestore.collection('products').get().then((value) {
       products.clear();
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         final product = element.data();
-        products.add(ProductModel(name: product['name'], price: product['price']));
-      });
+        products.add(ProductModel(name: product['name'], price: double.parse(product['price'].toString())));
+      }
     }).catchError((error) {});
-  }
-
-  void updateProducts(int index, String newName, double newPrice) {
-    ProductModel updatedProduct = ProductModel(name: newName, price: newPrice);
-    products[index] = updatedProduct;
     update();
   }
+
+  // void updateProducts(int index, String newName, double newPrice) {
+  //   ProductModel updatedProduct = ProductModel(name: newName, price: newPrice);
+  //   products[index] = updatedProduct;
+  //   update();
+  // }
 
   // Exemplo de método para atualizar um produto no Firestore
-  // void updateProducts(String productId, String newName, double newPrice) {
-  //   firestore.collection('products').doc(productId).update({
-  //     'name': newName,
-  //     'price': newPrice,
-  //   }).then((value) {
-  //     // Sucesso ao atualizar o produto no Firestore
-  //   }).catchError((error) {
-  //     // Lidar com o erro ao atualizar o produto no Firestore
-  //   });
-  // }
-
-  void removeProducts(int index) {
-    products.removeAt(index);
-    update();
+  void updateProducts(String productId, String newName, double newPrice) {
+    firestore.collection('products').doc(productId).update({
+      'name': newName,
+      'price': newPrice,
+    }).then((value) {
+      // Sucesso ao atualizar o produto no Firestore
+    }).catchError((error) {
+      // Lidar com o erro ao atualizar o produto no Firestore
+    });
   }
 
-  // // Exemplo de método para excluir um produto do Firestore
-  // void removeProducts(String productId) {
-  //   firestore.collection('products').doc(productId).delete().then((value) {
-  //     // Sucesso ao excluir o produto do Firestore
-  //   }).catchError((error) {
-  //     // Lidar com o erro ao excluir o produto do Firestore
-  //   });
+  // void removeProducts(int index) {
+  //   products.removeAt(index);
+  //   update();
   // }
+
+  // Exemplo de método para excluir um produto do Firestore
+  void removeProducts(String productId) {
+    firestore.collection('products').doc(productId).delete().then((value) {
+      // Sucesso ao excluir o produto do Firestore
+    }).catchError((error) {
+      // Lidar com o erro ao excluir o produto do Firestore
+    });
+  }
 
   void searchProducts(String searchTerm) {
     if (searchTerm.isEmpty) {

@@ -9,5 +9,4 @@ void main() async {
   runApp(
     const MyApp(),
   );
-  // final FirebaseFirestore firestore = FirebaseFirestore.instance;
 }

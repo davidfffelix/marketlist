@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'home_controller.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -39,7 +38,6 @@ class _HomePageState extends State<HomePage> {
                 horizontal: 14,
               ),
               child: TextField(
-                controller: controller.nameTextEditController,
                 onChanged: (value) {
                   controller.searchProducts(value);
                 },
@@ -110,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                             onChanged: (newName) {
                                               // Atualizar o nome do produto na lista
-                                              controller.updateProducts(index, newName, controller.products[index].price);
+                                              controller.updateProducts(newName, newName, controller.products[index].price);
                                             },
                                           ),
                                           const SizedBox(
@@ -139,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                                             onChanged: (newPrice) {
                                               // Atualizar o preço do produto na lista
                                               double parsedPrice = double.tryParse(newPrice) ?? 0;
-                                              controller.updateProducts(index, controller.products[index].name, parsedPrice);
+                                              controller.updateProducts(newPrice, controller.products[index].name, parsedPrice);
                                             },
                                           ),
                                           const SizedBox(
@@ -187,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.red,
                                 ),
                                 onPressed: () {
-                                  controller.removeProducts(index);
+                                  controller.removeProducts(index as String);
                                 },
                               ),
                             ],

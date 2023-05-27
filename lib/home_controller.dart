@@ -81,19 +81,19 @@ class HomeController extends GetxController {
     });
   }
 
-  // void removeProducts(int index) {
-  //   products.removeAt(index);
-  //   update();
-  // }
-
-  // Exemplo de método para excluir um produto do Firestore
-  void removeProducts(String productId) {
-    firestore.collection('products').doc(productId).delete().then((value) {
-      // Sucesso ao excluir o produto do Firestore
-    }).catchError((error) {
-      // Lidar com o erro ao excluir o produto do Firestore
-    });
+  void removeProducts(int index) {
+    products.removeAt(index);
+    update();
   }
+
+  // // Exemplo de método para excluir um produto do Firestore
+  // void removeProducts(String productId) {
+  //   firestore.collection('products').doc(productId).delete().then((value) {
+  //     // Sucesso ao excluir o produto do Firestore
+  //   }).catchError((error) {
+  //     // Lidar com o erro ao excluir o produto do Firestore
+  //   });
+  // }
 
   void searchProducts(String searchTerm) {
     if (searchTerm.isEmpty) {

@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.red,
                                 ),
                                 onPressed: () {
-                                  controller.removeProducts(index as String);
+                                  controller.removeProducts(index);
                                 },
                               ),
                             ],

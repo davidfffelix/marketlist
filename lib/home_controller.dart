@@ -13,6 +13,8 @@ class HomeController extends GetxController {
 
   late TextEditingController nameTextEditController;
   late TextEditingController priceTextEditController;
+  late TextEditingController editNameTextEditController;
+  late TextEditingController editPriceTextEditController;
 
   bool isSorted = true;
 
@@ -21,6 +23,8 @@ class HomeController extends GetxController {
     super.onClose();
     nameTextEditController.dispose();
     priceTextEditController.dispose();
+    editNameTextEditController.dispose();
+    editPriceTextEditController.dispose();
   }
 
   @override
@@ -28,8 +32,9 @@ class HomeController extends GetxController {
     super.onInit();
     nameTextEditController = TextEditingController();
     priceTextEditController = TextEditingController();
-    readProducts();
-    sortProducts();
+    editNameTextEditController = TextEditingController();
+    editPriceTextEditController = TextEditingController();
+
     foundProducts = products;
   }
 
@@ -57,43 +62,45 @@ class HomeController extends GetxController {
       products.clear();
       for (var element in value.docs) {
         final product = element.data();
-        products.add(ProductModel(name: product['name'], price: double.parse(product['price'].toString())));
+        products.add(
+          ProductModel(
+            name: product['name'],
+            price: double.parse(
+              product['price'].toString(),
+            ),
+            id: element.id,
+          ),
+        );
       }
     }).catchError((error) {});
     update();
   }
 
-  // void updateProducts(int index, String newName, double newPrice) {
-  //   ProductModel updatedProduct = ProductModel(name: newName, price: newPrice);
-  //   products[index] = updatedProduct;
-  //   update();
-  // }
-
-  // Exemplo de método para atualizar um produto no Firestore
   void updateProducts(String productId, String newName, double newPrice) {
     firestore.collection('products').doc(productId).update({
       'name': newName,
       'price': newPrice,
-    }).then((value) {
-      // Sucesso ao atualizar o produto no Firestore
-    }).catchError((error) {
-      // Lidar com o erro ao atualizar o produto no Firestore
-    });
+    }).then(
+      (value) {
+        readProducts();
+      },
+    ).catchError(
+      (error) {},
+    );
   }
 
-  void removeProducts(int index) {
-    products.removeAt(index);
-    update();
+  // Exemplo de método para excluir um produto do Firestore
+  void removeProducts(String productId) {
+    firestore.collection('products').doc(productId).delete().then(
+      (value) {
+        readProducts();
+      },
+    ).catchError(
+      (error) {
+        // Lidar com o erro ao excluir o produto do Firestore
+      },
+    );
   }
-
-  // // Exemplo de método para excluir um produto do Firestore
-  // void removeProducts(String productId) {
-  //   firestore.collection('products').doc(productId).delete().then((value) {
-  //     // Sucesso ao excluir o produto do Firestore
-  //   }).catchError((error) {
-  //     // Lidar com o erro ao excluir o produto do Firestore
-  //   });
-  // }
 
   void searchProducts(String searchTerm) {
     if (searchTerm.isEmpty) {

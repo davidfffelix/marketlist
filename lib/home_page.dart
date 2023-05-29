@@ -12,6 +12,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final HomeController controller = Get.put(HomeController());
+  @override
+  void initState() {
+    super.initState();
+    controller
+      ..readProducts()
+      ..sortProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,10 +113,7 @@ class _HomePageState extends State<HomePage> {
                                               hintText: 'Enter a New Name',
                                               border: OutlineInputBorder(),
                                             ),
-                                            onChanged: (newName) {
-                                              // Atualizar o nome do produto na lista
-                                              controller.updateProducts(newName, newName, controller.products[index].price);
-                                            },
+                                            controller: controller.editNameTextEditController,
                                           ),
                                           const SizedBox(
                                             height: 10,
@@ -134,11 +138,7 @@ class _HomePageState extends State<HomePage> {
                                               hintText: 'Enter New Price',
                                               border: OutlineInputBorder(),
                                             ),
-                                            onChanged: (newPrice) {
-                                              // Atualizar o preço do produto na lista
-                                              double parsedPrice = double.tryParse(newPrice) ?? 0;
-                                              controller.updateProducts(newPrice, controller.products[index].name, parsedPrice);
-                                            },
+                                            controller: controller.editPriceTextEditController,
                                           ),
                                           const SizedBox(
                                             height: 6,
@@ -168,7 +168,9 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                                 child: const Text('Update'),
                                                 onPressed: () {
-                                                  Navigator.of(context).pop();
+                                                  double parsedPrice = double.tryParse(controller.editPriceTextEditController.value.text) ?? 0;
+                                                  controller.updateProducts(controller.products[index].id, controller.editNameTextEditController.value.text, parsedPrice);
+                                                  Get.back();
                                                 },
                                               ),
                                             ],
@@ -185,7 +187,9 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.red,
                                 ),
                                 onPressed: () {
-                                  controller.removeProducts(index);
+                                  controller.removeProducts(
+                                    controller.products[index].id,
+                                  );
                                 },
                               ),
                             ],

@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'models/product_model.dart';
 
 class HomeController extends GetxController {
@@ -9,7 +8,11 @@ class HomeController extends GetxController {
 
   List<ProductModel> products = [];
 
+  /// Essa lista sempre terá todos os produtos
+
   List<ProductModel> foundProducts = [];
+
+  /// Essa lista terá apenas os produtos filtrados
 
   late TextEditingController nameTextEditController;
   late TextEditingController priceTextEditController;
@@ -18,9 +21,12 @@ class HomeController extends GetxController {
 
   bool isSorted = true;
 
+  double totalPrice = 0;
+
   @override
   void onClose() {
     super.onClose();
+
     nameTextEditController.dispose();
     priceTextEditController.dispose();
     editNameTextEditController.dispose();
@@ -30,6 +36,9 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    readProducts();
+    sortProducts();
+
     nameTextEditController = TextEditingController();
     priceTextEditController = TextEditingController();
     editNameTextEditController = TextEditingController();
@@ -57,11 +66,19 @@ class HomeController extends GetxController {
     }).catchError((error) {});
   }
 
-  void readProducts() {
-    firestore.collection('products').get().then((value) {
+  void readProducts() async {
+    await firestore.collection('products').get().then((value) {
       products.clear();
+      totalPrice = 0;
+
+      /// Resetar as variáveis locais para evitar duplicidade
       for (var element in value.docs) {
+        /// O loop for percorre todos os elementos que estão dentro de docs
+        /// value = Snapshot de todos os valores de todas as linhas/documentos do Firebase
+        /// docs = Lista de todos as linhas/documentos do Firebase
         final product = element.data();
+
+        /// .data retorna valor de docs
         products.add(
           ProductModel(
             name: product['name'],
@@ -71,6 +88,7 @@ class HomeController extends GetxController {
             id: element.id,
           ),
         );
+        totalPrice += product['price'];
       }
     }).catchError((error) {});
     update();

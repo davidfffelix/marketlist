@@ -40,6 +40,8 @@ dependencies:
   flutterfire_cli: ^0.2.7
   firebase_auth: ^4.6.1
   firebase_core: ^2.13.0
+  google_sign_in: ^6.1.2
+  flutter_signin_button:
 
 dev_dependencies:
   flutter_test:

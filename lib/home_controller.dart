@@ -8,11 +8,7 @@ class HomeController extends GetxController {
 
   List<ProductModel> products = [];
 
-  /// Essa lista sempre terá todos os produtos
-
   List<ProductModel> foundProducts = [];
-
-  /// Essa lista terá apenas os produtos filtrados
 
   late TextEditingController nameTextEditController;
   late TextEditingController priceTextEditController;
@@ -70,15 +66,8 @@ class HomeController extends GetxController {
     await firestore.collection('products').get().then((value) {
       products.clear();
       totalPrice = 0;
-
-      /// Resetar as variáveis locais para evitar duplicidade
       for (var element in value.docs) {
-        /// O loop for percorre todos os elementos que estão dentro de docs
-        /// value = Snapshot de todos os valores de todas as linhas/documentos do Firebase
-        /// docs = Lista de todos as linhas/documentos do Firebase
         final product = element.data();
-
-        /// .data retorna valor de docs
         products.add(
           ProductModel(
             name: product['name'],
@@ -107,16 +96,13 @@ class HomeController extends GetxController {
     );
   }
 
-  // Exemplo de método para excluir um produto do Firestore
   void removeProducts(String productId) {
     firestore.collection('products').doc(productId).delete().then(
       (value) {
         readProducts();
       },
     ).catchError(
-      (error) {
-        // Lidar com o erro ao excluir o produto do Firestore
-      },
+      (error) {},
     );
   }
 

@@ -1,4 +1,0 @@
-enum Sort {
-  byHigherPrice,
-  byLowerPrice,
-}
